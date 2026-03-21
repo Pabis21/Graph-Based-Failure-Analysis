@@ -1,5 +1,5 @@
 source,target,probability
-cloud_cdn,google_cloud_dns,0.90
+cloud_cdn,google_cloud_dns,0.09
 cloud_load_balancing,cloud_cdn,0.85
 google_app_engine,cloud_load_balancing,0.90
 apigee,google_app_engine,0.70

@@ -31,7 +31,6 @@ all_data <- bind_rows(
   high_failure
 )
 
-# Ensure consistent scenario order
 all_data$scenario <- factor(
   all_data$scenario,
   levels = c("Baseline", "Low_P", "High_P", "High_MTTR", "High_Failure")
@@ -42,7 +41,7 @@ all_data$scenario <- factor(
 # -----------------------------
 svi_data <- all_data %>%
   group_by(scenario) %>%
-  summarise(SVI = sum(expected), .groups = "drop")
+  summarise(SVI = sum(expected_system_impact), .groups = "drop")
 
 print("System Vulnerability Index (SVI) by scenario:")
 print(svi_data)
@@ -52,7 +51,7 @@ print(svi_data)
 # -----------------------------
 max_risk <- all_data %>%
   group_by(scenario) %>%
-  slice_max(order_by = expected, n = 1, with_ties = FALSE) %>%
+  slice_max(order_by = expected_system_impact, n = 1, with_ties = FALSE) %>%
   ungroup()
 
 print("Max-risk service by scenario:")
@@ -71,51 +70,67 @@ p1 <- ggplot(svi_data, aes(x = scenario, y = SVI, fill = scenario)) +
   theme_minimal()
 
 print(p1)
-ggsave("output/svi_comparison.png", plot = p1, width = 8, height = 5)
+ggsave("../../output/svi_comparison.png", plot = p1, width = 8, height = 5)
 
 # -----------------------------
-# Graph 2: Expected impact per service (all scenarios)
+# Graph 2: Expected system impact per service across scenarios
 # -----------------------------
-p2 <- ggplot(all_data, aes(x = service, y = expected, fill = scenario)) +
+p2 <- ggplot(all_data, aes(x = service, y = expected_system_impact, fill = scenario)) +
   geom_col(position = "dodge") +
   labs(
-    title = "Expected Impact per Service Across Scenarios",
+    title = "Expected System Impact per Service Across Scenarios",
     x = "Service",
-    y = "Expected Impact"
+    y = "Expected System Impact"
   ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
 
 print(p2)
-ggsave("output/expected_impact_by_service.png", plot = p2, width = 12, height = 6)
+ggsave("../../output/expected_system_impact_by_service.png", plot = p2, width = 12, height = 6)
 
 # -----------------------------
-# Graph 3: Baseline raw vs expected impact
+# Graph 3: Dependent service loss per service (baseline)
 # -----------------------------
-p_raw <- ggplot(baseline, aes(x = service, y = raw)) +
+p3 <- ggplot(baseline, aes(x = service, y = dependent_service_loss)) +
   geom_col() +
   labs(
-    title = "Raw Impact per Service",
+    title = "Dependent Service Loss per Service (Baseline)",
     x = "Service",
-    y = "Raw Impact"
+    y = "Dependent Service Loss"
   ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1))
 
-print(p_raw)
-ggsave("output/raw_impact.png", plot = p_raw, width = 12, height = 6)
+print(p3)
+ggsave("../../output/dependent_service_loss_baseline.png", plot = p3, width = 12, height = 6)
 
 # -----------------------------
-# Graph 4: Max-risk service per scenario
+# Graph 4: Affected service ratio per service (baseline)
 # -----------------------------
-p4 <- ggplot(max_risk, aes(x = scenario, y = expected, fill = service)) +
+p4 <- ggplot(baseline, aes(x = service, y = affected_service_ratio)) +
+  geom_col() +
+  labs(
+    title = "Affected Service Ratio per Service (Baseline)",
+    x = "Service",
+    y = "Affected Service Ratio"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
+print(p4)
+ggsave("../../output/affected_service_ratio_baseline.png", plot = p4, width = 12, height = 6)
+
+# -----------------------------
+# Graph 5: Max-risk service per scenario
+# -----------------------------
+p5 <- ggplot(max_risk, aes(x = scenario, y = expected_system_impact, fill = service)) +
   geom_col() +
   labs(
     title = "Max-Risk Service in Each Scenario",
     x = "Scenario",
-    y = "Expected Impact"
+    y = "Expected System Impact"
   ) +
   theme_minimal()
 
-print(p4)
-ggsave("output/max_risk_service.png", plot = p4, width = 8, height = 5)
+print(p5)
+ggsave("../../output/max_risk_service.png", plot = p5, width = 8, height = 5)

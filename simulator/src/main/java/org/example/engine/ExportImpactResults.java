@@ -7,28 +7,28 @@ import java.util.List;
 public class ExportImpactResults {
 
     public static void export(List<ImpactResult> results, String fileName) throws Exception {
-        System.out.println("Writing file: " + fileName);
-
         File outFile = new File(fileName);
         File parent = outFile.getParentFile();
+
         if (parent != null && !parent.exists()) {
             parent.mkdirs();
         }
 
         PrintWriter writer = new PrintWriter(outFile);
 
-        writer.println("service,raw,expected,fsr");
+        writer.println("service,dependent_service_loss,self_downtime,expected_system_impact,affected_service_ratio,affected_service_count");
 
         for (ImpactResult r : results) {
             writer.println(
                     r.serviceName + "," +
-                            r.rawImpact + "," +
-                            r.expectedImpact + "," +
-                            r.fsr
+                            r.dependentServiceLoss + "," +
+                            r.selfDowntime + "," +
+                            r.expectedSystemImpact + "," +
+                            r.affectedServiceRatio + "," +
+                            r.affectedServiceCount
             );
         }
 
         writer.close();
-        System.out.println("Export complete: " + outFile.getAbsolutePath());
     }
 }
