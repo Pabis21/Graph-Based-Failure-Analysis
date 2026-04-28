@@ -9,11 +9,6 @@ public class Service {
     public double failureRate;
     public int mttr;
 
-    public int totalFailures = 0;
-    public int totalDowntime = 0;
-
-    public int directFailures = 0;
-    public int cascadedFailures = 0;
 
     public List<Edge> dependencies = new ArrayList<>();
 

@@ -15,6 +15,6 @@ transaction_extraction_service_cloud_run,cloud_sql,0.65
 read_api_cloud_run,cloud_sql_read_replica,0.65
 accounts_api_cloud_run,cloud_memorystore,0.60
 read_api_cloud_run,cloud_memorystore,0.60
-notification_service_cloud_run,google_cloud_pub_sub,0.55
-transaction_extraction_service_cloud_run,google_cloud_pub_sub,0.60
+notification_service_cloud_run,queue_pub_sub,0.55
+transaction_extraction_service_cloud_run,queue_pub_sub,0.60
 transaction_extraction_service_cloud_run,cloud_storage,0.60

@@ -10,7 +10,7 @@ budget_service_cloud_run,0.12,20
 notification_service_cloud_run,0.12,20
 transaction_extraction_service_cloud_run,0.15,25
 cloud_memorystore,0.08,10
-google_cloud_pub_sub,0.08,10
+queue_pub_sub,0.08,10
 cloud_sql,0.15,30
 cloud_sql_read_replica,0.12,25
 cloud_storage,0.10,20
