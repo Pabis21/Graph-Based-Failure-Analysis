@@ -73,7 +73,7 @@ public class ImpactCalculator {
         );
     }
 
-    public List<ImpactResult> calculateAllImpacts() {
+    public List<ImpactResult>  calculateAllImpacts() {
         List<ImpactResult> results = new ArrayList<>();
 
         for (Service s : graph.services) {

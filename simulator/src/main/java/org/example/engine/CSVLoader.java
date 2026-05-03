@@ -18,7 +18,7 @@ public class CSVLoader {
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
 
         String line;
-        br.readLine(); // skip header
+        br.readLine();
 
         while ((line = br.readLine()) != null) {
 
@@ -46,7 +46,7 @@ public class CSVLoader {
         BufferedReader br = new BufferedReader(new InputStreamReader(input));
 
         String line;
-        br.readLine(); // skip header
+        br.readLine();
 
         while ((line = br.readLine()) != null) {
 
@@ -62,14 +62,14 @@ public class CSVLoader {
                     probability
             );
         }
-        System.out.println(
-                "Dependents of data_storage: " +
-                        graph.getDependents(graph.getService("data_storage")).size()
-        );
-        System.out.println(
-                "Dependents of data_storage: " +
-                        graph.getDependents(graph.getService("data_storage")).size()
-        );
+//        System.out.println(
+//                "Dependents of data_storage: " +
+//                        graph.getDependents(graph.getService("data_storage")).size()
+//        );
+//        System.out.println(
+//                "Dependents of data_storage: " +
+//                        graph.getDependents(graph.getService("data_storage")).size()
+//        );
 
         br.close();
     }
